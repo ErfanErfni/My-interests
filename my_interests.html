@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="صفحه‌ای درباره علاقه‌مندی‌ها، تفریحات و نگاه من به زندگی">
+  <title>علاقه‌مندی‌ها و اوقات فراغت من</title>
+  <style>
+    :root {
+      --ink: #182b2a;
+      --muted: #667674;
+      --green: #245c4b;
+      --green-dark: #173e35;
+      --mint: #e8f0e9;
+      --sand: #f4efe5;
+      --gold: #c58d4b;
+      --white: #fffefa;
+      --line: rgba(24, 43, 42, .12);
+      --shadow: 0 18px 55px rgba(26, 53, 45, .10);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--white);
+      font-family: Tahoma, Arial, sans-serif;
+      line-height: 1.95;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    .topbar {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(255,254,250,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      min-height: 70px; display: flex; align-items: center;
+      justify-content: space-between; gap: 24px;
+    }
+    .brand { font-weight: 800; color: var(--green-dark); letter-spacing: -.4px; }
+    .brand span { color: var(--gold); }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 22px; color: var(--muted); font-size: 13px; }
+    .nav-links a:hover { color: var(--green); }
+    .hero {
+      position: relative; overflow: hidden;
+      padding: 92px 0 82px;
+      background:
+        radial-gradient(circle at 12% 20%, rgba(197,141,75,.18), transparent 26%),
+        radial-gradient(circle at 88% 78%, rgba(98,145,113,.20), transparent 28%),
+        linear-gradient(135deg, #edf3eb 0%, #f8f4eb 58%, #e7eee7 100%);
+    }
+    .hero::after {
+      content: ""; position: absolute; left: -90px; bottom: -180px;
+      width: 440px; height: 440px; border: 1px solid rgba(36,92,75,.14);
+      border-radius: 50%; box-shadow: 0 0 0 35px rgba(36,92,75,.035), 0 0 0 75px rgba(36,92,75,.025);
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 760px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px;
+      color: var(--green); background: rgba(255,255,255,.72);
+      border: 1px solid rgba(36,92,75,.12); border-radius: 99px;
+      padding: 5px 14px; font-size: 12px; font-weight: bold;
+    }
+    .eyebrow::before { content: ""; width: 7px; height: 7px; background: var(--gold); border-radius: 50%; }
+    h1 { font-size: clamp(34px, 5vw, 58px); line-height: 1.45; margin: 22px 0 14px; letter-spacing: -1.4px; }
+    h1 span { color: var(--green); }
+    .hero p { max-width: 690px; color: #526561; font-size: 16px; margin: 0; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .meta-pill { color: var(--green-dark); background: rgba(255,255,255,.68); border: 1px solid var(--line); border-radius: 10px; padding: 8px 13px; font-size: 12px; }
+    section { padding: 76px 0; }
+    .section-head { max-width: 700px; margin-bottom: 34px; }
+    .kicker { color: var(--gold); font-size: 12px; font-weight: bold; letter-spacing: .5px; }
+    h2 { font-size: clamp(25px, 3vw, 35px); line-height: 1.5; margin: 7px 0 10px; letter-spacing: -.5px; }
+    .section-head p { color: var(--muted); margin: 0; font-size: 14px; }
+    .intro-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 28px; align-items: stretch; }
+    .intro-copy, .quote-card { border-radius: 20px; padding: 30px; }
+    .intro-copy { background: var(--white); border: 1px solid var(--line); box-shadow: var(--shadow); }
+    .intro-copy p { margin: 0 0 14px; color: #52615e; font-size: 14px; }
+    .intro-copy p:last-child { margin-bottom: 0; }
+    .quote-card { background: var(--green-dark); color: #f7f5ed; display: flex; flex-direction: column; justify-content: center; }
+    .quote-mark { color: #d9b17a; font-family: Georgia, serif; font-size: 58px; line-height: 1; }
+    .quote-card blockquote { margin: 8px 0 16px; font-size: 20px; line-height: 1.9; font-weight: bold; }
+    .quote-card small { color: #c4d2c9; font-size: 12px; }
+    .interests { background: #f6f5ef; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .interest-card {
+      background: var(--white); border: 1px solid var(--line); border-radius: 17px;
+      padding: 24px; min-height: 220px; transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .interest-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .icon {
+      width: 43px; height: 43px; display: grid; place-items: center;
+      border-radius: 13px; background: var(--mint); font-size: 21px; margin-bottom: 14px;
+    }
+    .interest-card h3 { margin: 0 0 8px; font-size: 17px; color: var(--green-dark); }
+    .interest-card p { margin: 0; color: var(--muted); font-size: 13px; }
+    .life-section { background: var(--white); }
+    .life-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 36px; align-items: center; }
+    .visual-panel {
+      min-height: 370px; border-radius: 22px; padding: 28px; color: white;
+      background:
+        linear-gradient(180deg, rgba(15,43,35,.12), rgba(15,43,35,.84)),
+        radial-gradient(ellipse at 70% 20%, #9aa77d 0%, transparent 34%),
+        linear-gradient(135deg, #486b55, #203f36 65%, #182f2b);
+      display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden;
+      position: relative;
+    }
+    .visual-panel::before, .visual-panel::after {
+      content: ""; position: absolute; border: 1px solid rgba(255,255,255,.18); border-radius: 50%;
+      width: 270px; height: 270px; top: -105px; left: -70px;
+    }
+    .visual-panel::after { width: 360px; height: 360px; top: -150px; left: -115px; }
+    .visual-panel .big-symbol { position: absolute; top: 35px; right: 30px; font-size: 76px; opacity: .9; }
+    .visual-panel h3, .visual-panel p { position: relative; z-index: 1; }
+    .visual-panel h3 { font-size: 24px; margin: 0 0 5px; }
+    .visual-panel p { margin: 0; color: #dce8dd; font-size: 13px; }
+    .life-copy h2 { margin-top: 0; }
+    .life-copy p { color: var(--muted); font-size: 14px; }
+    .life-list { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 12px; }
+    .life-list li { display: flex; align-items: flex-start; gap: 12px; color: #42534e; font-size: 13px; }
+    .life-list li::before { content: "✓"; color: var(--green); font-weight: bold; background: var(--mint); border-radius: 50%; width: 23px; height: 23px; flex: 0 0 23px; display: grid; place-items: center; line-height: 1; }
+    .closing { padding: 65px 0; background: var(--sand); text-align: center; }
+    .closing h2 { max-width: 700px; margin: 0 auto 12px; color: var(--green-dark); }
+    .closing p { max-width: 680px; margin: 0 auto; color: var(--muted); font-size: 14px; }
+    footer { background: #173e35; color: #d5e0d8; padding: 22px 0; font-size: 11px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap; }
+    @media (max-width: 800px) {
+      .intro-grid, .life-grid { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: repeat(2, 1fr); }
+      .hero { padding: 68px 0 60px; }
+      section { padding: 58px 0; }
+    }
+    @media (max-width: 540px) {
+      .container { width: min(100% - 28px, 1120px); }
+      .nav { align-items: flex-start; flex-direction: column; justify-content: center; padding: 12px 0; gap: 5px; }
+      .nav-links { gap: 13px; font-size: 11px; }
+      .cards { grid-template-columns: 1fr; }
+      .interest-card { min-height: auto; }
+      .intro-copy, .quote-card { padding: 23px; }
+      .visual-panel { min-height: 300px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#home">دنیای من<span>.</span></a>
+      <nav class="nav-links" aria-label="ناوبری اصلی">
+        <a href="#about">درباره من</a>
+        <a href="#interests">علاقه‌مندی‌ها</a>
+        <a href="#free-time">اوقات فراغت</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <span class="eyebrow">نگاهی به علایق و سبک زندگی من</span>
+          <h1>زندگی برای من،<br><span>کشف کردن و تجربه کردن</span> است.</h1>
+          <p>
+            از آرامش طبیعت و هیجان سفر گرفته تا یادگیری، تجارت و دغدغه‌های اجتماعی؛
+            علاقه‌مندی‌های من بخش مهمی از هویت و نگاه من به زندگی را شکل می‌دهند.
+          </p>
+          <div class="hero-meta">
+            <span class="meta-pill">طبیعت‌گردی و سفر</span>
+            <span class="meta-pill">یادگیری و فناوری</span>
+            <span class="meta-pill">تجارت و اثرگذاری اجتماعی</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">ABOUT ME</span>
+          <h2>کمی درباره من</h2>
+          <p>ترکیبی از کنجکاوی، تجربه‌جویی و علاقه به ساختن آینده‌ای بهتر.</p>
+        </div>
+        <div class="intro-grid">
+          <div class="intro-copy">
+            <p>
+              من به تجربه‌های تازه و شناختن دنیای اطرافم علاقه دارم. طبیعت، سفر و آشنایی
+              با آدم‌ها و فرهنگ‌های مختلف به من فرصت می‌دهند از زاویه‌های متفاوتی به زندگی نگاه کنم.
+            </p>
+            <p>
+              یکی از ارزشمندترین چیزها برای من، افزایش «تجربه زیست» است. گاهی برای به دست آوردن
+              تجربه‌هایی هزینه‌های زیادی پرداخته‌ام، اما باور دارم انسان باید به‌مرور خودش و دنیای
+              اطرافش را کشف کند. همیشه هم مسیر شناختن، مستقیم و بی‌خطا نیست؛ گاهی آزمون‌وخطا
+              تنها راهی است که می‌تواند چیزی واقعی به ما یاد بدهد.
+            </p>
+            <p>
+              در کنار این علایق، دنیای تجارت و کسب‌وکار برایم جذاب است. دوست دارم ایده‌ها را
+              به فرصت‌های واقعی تبدیل کنم، چیزهای تازه یاد بگیرم و در مسیر حرفه‌ای خودم
+              قدم‌های مستقل و مؤثری بردارم.
+            </p>
+            <p>
+              سیاست و مسائل اجتماعی را نیز دنبال می‌کنم؛ چون باور دارم بی‌تفاوت نبودن نسبت
+              به جامعه اهمیت دارد. دوست دارم در آینده، فراتر از موفقیت شخصی، فردی اثرگذار
+              باشم و سهم مثبتی در محیط و جامعه‌ای که در آن زندگی می‌کنم داشته باشم.
+            </p>
+          </div>
+          <aside class="quote-card">
+            <div class="quote-mark">“</div>
+            <blockquote>
+              ترجیح می‌دهم روزی که داستان زندگی‌ام به نقطه پایان رسید،
+              چیزی برای تعریف کردن داشته باشم؛ نه اینکه دفتر زندگی‌ام
+              سفید و نانوشته بسته شود.
+            </blockquote>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="interests" id="interests">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">MY INTERESTS</span>
+          <h2>چیزهایی که به آن‌ها علاقه دارم</h2>
+          <p>هرکدام از این علاقه‌ها، به شکلی متفاوت به زندگی من انرژی و معنا می‌دهند.</p>
+        </div>
+        <div class="cards">
+          <article class="interest-card">
+            <div class="icon" aria-hidden="true">🌿</div>
+            <h3>طبیعت و ماجراجویی</h3>
+            <p>طبیعت برای من جایی برای فاصله گرفتن از شلوغی روزمره، آرامش گرفتن و تجربه کردن لحظه‌های تازه است.</p>
+          </article>
+          <article class="interest-card">
+            <div class="icon" aria-hidden="true">🧭</div>
+            <h3>سفر و کشف مکان‌های تازه</h3>
+            <p>دیدن شهرها و مناطق جدید، آشنایی با فرهنگ‌ها و تجربه مسیرهای متفاوت، همیشه برایم جذاب بوده است.</p>
+          </article>
+          <article class="interest-card">
+            <div class="icon" aria-hidden="true">📈</div>
+            <h3>تجارت و کارآفرینی</h3>
+            <p>به ایده‌پردازی، شناخت فرصت‌ها، راه‌اندازی کسب‌وکار و تبدیل فکرهای کاربردی به نتیجه واقعی علاقه دارم.</p>
+          </article>
+          <article class="interest-card">
+            <div class="icon" aria-hidden="true">🏛️</div>
+            <h3>سیاست و جامعه</h3>
+            <p>تحولات سیاسی و مسائل عمومی را با علاقه دنبال می‌کنم و دوست دارم در آینده نقشی سازنده و تأثیرگذار در جامعه داشته باشم.</p>
+          </article>
+          <article class="interest-card">
+            <div class="icon" aria-hidden="true">🏊</div>
+            <h3>شنا</h3>
+            <p>شنا از ورزش‌هایی است که واقعاً به آن علاقه دارم؛ هم تحرک و نشاط دارد و هم حس آرامش و رهایی ایجاد می‌کند.</p>
+          </article>
+          <article class="interest-card">
+            <div class="icon" aria-hidden="true">🗺️</div>
+            <h3>یادگیری و دنیای فناوری</h3>
+            <p>یاد گرفتن مهارت‌های تازه، کار با ابزارهای دیجیتال و پیدا کردن راه‌حل برای مسئله‌های واقعی، برایم لذت‌بخش است.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="life-section" id="free-time">
+      <div class="container life-grid">
+        <div class="visual-panel">
+          <div class="big-symbol" aria-hidden="true">⛺</div>
+          <h3>گاهی بهترین برنامه، دل سپردن به طبیعت است.</h3>
+          <p>کمپ در طبیعت، پیمایش جنگل و تجربه مسیرهای تازه</p>
+        </div>
+        <div class="life-copy">
+          <span class="kicker">FREE TIME</span>
+          <h2>اوقات فراغت من</h2>
+          <p>
+            یکی از دوست‌داشتنی‌ترین تفریحات من کمپ کردن در طبیعت و پیمایش در جنگل است.
+            بودن در دل طبیعت، شنیدن صدای محیط و دور شدن از فضای تکراری شهر، برایم تجربه‌ای
+            لذت‌بخش و انرژی‌بخش است. سفرهای کوتاه و کشف مسیرهای کمترشناخته‌شده هم از انتخاب‌های
+            مورد علاقه من در زمان آزاد هستند.
+          </p>
+          <p>
+            علاقه دیگری که به‌مرور در زندگی روزمره‌ام پررنگ‌تر شده، آشپزی است. چون چندین سال
+            تنها زندگی کرده‌ام، آشپزی کم‌کم به یکی از سرگرمی‌هایم تبدیل شده است. بیشتر از
+            دنبال کردن دقیق دستورها، از ترکیب ادویه‌ها، امتحان کردن مواد مختلف و ساختن
+            طعم‌های قوی و جدید لذت می‌برم؛ انگار آشپزخانه فضایی برای آزمایش و خلاقیت است.
+          </p>
+          <ul class="life-list">
+            <li>کمپ کردن و گذراندن زمان در فضای باز</li>
+            <li>پیمایش در جنگل و پیاده‌روی در مسیرهای طبیعی</li>
+            <li>شنا و فعالیت‌هایی که هم نشاط‌آورند و هم آرامش‌بخش</li>
+            <li>آشپزی خلاقانه و تجربه ترکیب‌های تازه از ادویه‌ها</li>
+            <li>مطالعه، یادگیری مهارت‌های جدید و دنبال کردن موضوعات روز</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="container">
+        <span class="kicker">A LITTLE MORE ABOUT ME</span>
+        <h2>زندگی را باید تجربه کرد؛ حتی اگر همیشه مسیرش بی‌خطا نباشد.</h2>
+        <p>
+          برای من، ارزش زندگی فقط در مقصدهایی که به آن‌ها می‌رسم خلاصه نمی‌شود؛
+          بخشی از معنا در مسیر، در کشف ناشناخته‌ها، در تجربه کردن و حتی در درس‌هایی است
+          که از اشتباهاتم می‌گیرم. دوست دارم وقتی به پایان داستانم نگاه می‌کنم،
+          صفحه‌های زیادی برای ورق زدن و روایت کردن داشته باشم.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>صفحه شخصی من | علاقه‌مندی‌ها و اوقات فراغت</span>
+      <span>طراحی‌شده با HTML و CSS</span>
+    </div>
+  </footer>
+</body>
+</html>
